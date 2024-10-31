@@ -267,9 +267,9 @@ void aMenu(string &command, string &filenm)
 }
 
 // Список
-DoublyLinkedList alReadyFile(string &filenm, string &nameStruct)
+SinglyLinkedList  alReadyFile(string &filenm, string &nameStruct)
 {
-    DoublyLinkedList data;
+    SinglyLinkedList  data;
     string str;
     ifstream fin;
     fin.open(filenm);
@@ -294,7 +294,7 @@ DoublyLinkedList alReadyFile(string &filenm, string &nameStruct)
 void LPUSH(string &name, string &value, string filenm, string check)
 {
     string textfull = Futext(filenm, name);
-    DoublyLinkedList data = alReadyFile(filenm, name);
+    SinglyLinkedList  data = alReadyFile(filenm, name);
 
     if (!data.isEmpty())
     {
@@ -318,7 +318,7 @@ void LPUSH(string &name, string &value, string filenm, string check)
 
 void LPOP(string &name, string &filenm, string check)
 {
-    DoublyLinkedList data = alReadyFile(filenm, name);
+    SinglyLinkedList  data = alReadyFile(filenm, name);
     string textfull = Futext(filenm, name);
 
     if (!data.isEmpty())
@@ -343,7 +343,7 @@ void LPOP(string &name, string &filenm, string check)
 void LREMOVE(string &name, string &value, string &filenm)
 {
     string textfull = Futext(filenm, name);
-    DoublyLinkedList data = alReadyFile(filenm, name);
+    SinglyLinkedList  data = alReadyFile(filenm, name);
 
     if (!data.isEmpty())
     {
@@ -366,7 +366,7 @@ void LREMOVE(string &name, string &value, string &filenm)
 
 void LGET(string &name, string &value, string &filename)
 {
-    DoublyLinkedList data = alReadyFile(filename, name);
+    SinglyLinkedList  data = alReadyFile(filename, name);
 
     if (!data.isEmpty())
     {
@@ -388,7 +388,7 @@ void LGET(string &name, string &value, string &filename)
 
 void LPRINT(string &name, string &filename)
 {
-    DoublyLinkedList data = alReadyFile(filename, name);
+    SinglyLinkedList data = alReadyFile(filename, name);
 
     if (!data.isEmpty())
     {
@@ -431,16 +431,12 @@ void lMenu(string &command, string filenm)
         stringstream stream(cons);
         stream >> name;
         LPOP(name, filenm, "front");
-    }
-    else if (command.substr(0, 8) == "LREMOVE ")
-    {
+    } else if (command.substr(0, 8) == "LREMOVE ") {
         string cons = command.substr(8);
         stringstream stream(cons);
         stream >> name >> value;
         LREMOVE(name, value, filenm);
-    }
-    else if (command.substr(0, 5) == "LGET ")
-    {
+    } else if (command.substr(0, 5) == "LGET ") {
         string cons = command.substr(5);
         stringstream stream(cons);
         stream >> name >> value;
