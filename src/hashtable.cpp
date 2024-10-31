@@ -3,7 +3,7 @@
 Hash_table::Hash_table() { 
     table = new Hinfo* [SIZE];
     for (size_t i = 0; i < SIZE; ++i) { 
-        table[i] = nullptr; //Присваиванпие каждой ноды, нулевого значения
+        table[i] = nullptr; //Присваивание каждой ноды, нулевого значения
     }
 }
 
