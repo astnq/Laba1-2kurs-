@@ -1,6 +1,6 @@
 #include "../include/array.h"
 
-Array::Array() : volume(10), size(0) {  // Добавлено :
+Array::Array() : volume(10), size(0) {  
     arr = new string[volume];
 }
 
