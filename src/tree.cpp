@@ -6,91 +6,81 @@ NodeT::NodeT(int value) {
     right = nullptr;
 }
 
-CompleteBinaryTree::CompleteBinaryTree() { 
+FullBinaryTree::FullBinaryTree() { 
     root = nullptr;
     size = 0;
 }
 
-void CompleteBinaryTree::print() {
+void FullBinaryTree::print() { 
     printTree(root, 0);
-    cout << endl;
+    cout << endl; 
 }
 
-string CompleteBinaryTree::toString() {
-    return _toString(root); 
+string FullBinaryTree::toString() { 
+    return _toString(root);
 }
 
-void CompleteBinaryTree::insert(int value) {
-    root = _insert(root, value);
+void FullBinaryTree::insert(int value) {
+    root = _insert(root, value);  
     size++;
 }
 
-NodeT* CompleteBinaryTree::_insert(NodeT* nodeb, int value) {
-    if (nodeb == nullptr) { // Если текущий узел равен нулю
-        return new NodeT(value); // Создаем новый узел и возвращаем его
+NodeT* FullBinaryTree::_insert(NodeT* node, int value) { 
+    if (node == nullptr) { 
+        return new NodeT(value);
     }
-
-    if (value < nodeb->data) { // Сравниваем значения
-        nodeb->left = _insert(nodeb->left, value); // Рекурсивно вставляем в левое поддерево
+    if (value < node->data) { 
+        node->left = _insert(node->left, value);  
     } else {
-        nodeb->right = _insert(nodeb->right, value); // Рекурсивно вставляем в правое поддерево
+        node->right = _insert(node->right, value);  
     }
-
-    return nodeb; // Возвращаем текущий узел
+    return node;
 }
 
-bool CompleteBinaryTree::search(NodeT* nodet, int value) {
-    if(nodet == nullptr) return false;
-    if(nodet->data == value) return true;
-    return search(nodet->left, value) || search(nodet->right, value);
+bool FullBinaryTree::search(NodeT* node, int value) { 
+    if (node == nullptr) return false;
+    if (node->data == value) return true; 
+    return search(node->left, value) || search(node->right, value);  
 }
 
-bool CompleteBinaryTree::isComplete() { 
-    int nodetCount = countNodes(root);
-    return isComplete(root, 0 , size);
+bool FullBinaryTree::isFull() { 
+    return isFull(root);
 }
 
-bool CompleteBinaryTree::isComplete(NodeT* nodet, int index, int totalNodes) {
-    if(nodet == nullptr) return true; // Если узел пустой, это считается полным 
-    if(index >= totalNodes) return false; // Если индекс больше и равен количеству узлов, не полное
-
-    // Проверяем рекурсивно для левого и правого поддеревья 
-    return isComplete(nodet->left, 2 * index + 1, totalNodes) &&
-           isComplete(nodet->right, 2 * (index + 1), totalNodes);
+bool FullBinaryTree::isFull(NodeT* node) { 
+    if (node == nullptr) return true;
+    
+    
+    if (node->left == nullptr && node->right == nullptr) return true;  // Лист - полный
+    if (node->left != nullptr && node->right != nullptr) {  // Оба потомка есть
+        return isFull(node->left) && isFull(node->right);
+    }
+    return false;  
 }
 
-int CompleteBinaryTree::countNodes(NodeT* nodet) {
-    if (nodet == nullptr) return 0;
-    return 1 + countNodes(nodet->left) + countNodes(nodet->right);
-}
-
-string CompleteBinaryTree::_toString(NodeT* nodet) {
-    if (nodet == nullptr) return "";
-
-    ostringstream oss;
-    oss << nodet->data << " "; // Добавляем текущий узел
-
-    oss << _toString(nodet->left); // Рекурсивно добавляем элементы из левого поддерева
-    oss << _toString(nodet->right); // Рекурсивно добавляем элементы из правого поддерева
-
+string FullBinaryTree::_toString(NodeT* node) { 
+    if (node == nullptr) return "";
+    ostringstream oss;  
+    oss << node->data << " ";
+    oss << _toString(node->left);
+    oss << _toString(node->right);
     return oss.str();
 }
 
-
-void CompleteBinaryTree::printTree(NodeT* node, int depth) { 
-    if(node == nullptr) return;
+void FullBinaryTree::printTree(NodeT* node, int depth) { 
+    if (node == nullptr) return;
     printTree(node->right, depth + 1);
     cout << setw(4 * depth) << " " << node->data << endl;
     printTree(node->left, depth + 1);
 }
 
-void CompleteBinaryTree::clear(NodeT* nodet) {
-    if(nodet == nullptr) return; 
-    clear(nodet->left);
-    clear(nodet->right);
-    delete nodet;
+void FullBinaryTree::clear(NodeT* node) { 
+    if (node == nullptr) return;
+    clear(node->left);
+    clear(node->right);
+    delete node;
 }
 
-CompleteBinaryTree::~CompleteBinaryTree(){
+FullBinaryTree::~FullBinaryTree() { 
     clear(root);
 }
