@@ -1,62 +1,55 @@
 #pragma once
-
 #include "includes.h"
 
+// ДОБАВЬ ЭТИ ОБЪЯВЛЕНИЯ:
 struct Node {
     string data;
-    Node* next; //Указатель на след. элемент
-    
-    Node(string value); //Конструктор узла
+    Node* next;
+    Node(string value);
 };
 
-struct SinglyLinkedList {
-    Node* head;
-    size_t elementCount = 0;
+struct DoubleNode { 
+    string data;
+    DoubleNode* next;
+    DoubleNode* prev;
+    DoubleNode(string value);
+};
 
-    SinglyLinkedList(); //Конструктор
-    ~SinglyLinkedList(); //Деконструктор
+struct SinglyLinkedList { 
+    Node* head;
+    size_t elementCount;
+
+    SinglyLinkedList();
+    ~SinglyLinkedList();
 
     bool isEmpty() const;
-    void print(); // ф-ия вывода списка
-    void pushFront(string value); //Добавление в начало списка
-    void pushBack(string value); //Добавление в конец списка
-    void popFront(); //Удаление в начале списка
-    void popBack(); //Удаление в конце списка
-    void removeAt(string value); //Удаление по индексу
-    bool find(string value); //Поиск значений в списке
+    void print();
+    void pushFront(string value);
+    void pushBack(string value);
+    void popFront();
+    void popBack();
+    void removeAt(string value);
+    bool find(string value);
     void clearSList();
     Node* getHead() const;
 };
 
-
-struct DoubleNode {
-    string data;
-    DoubleNode* next;
-    DoubleNode* prev; //Указатель на предыдущий элемент в списке
-
-    DoubleNode(string value); //Конструктор узла
-};
-
-struct DoublyLinkedList {
-    
-    string data;
+struct DoubleLinkedList { 
     DoubleNode* head;
     DoubleNode* tail;
-    size_t elementCount = 0;
+    size_t elementCount;
 
-    DoublyLinkedList(); //Конструктор
-    ~DoublyLinkedList(); //Деконструктор
+    DoubleLinkedList();
+    ~DoubleLinkedList();
 
     bool isEmpty() const;
-    void pushFront(string value); //Добавление в начало списка
-    void pushBack(string value); //Добавление в конец списка
-    void popFront(); //Удаление в начале списка
-    void popBack(); //Удаление в конце списка
-    void removeAt(string value); //Удаление по индексу
-    bool find(string value); //Поиск значений в списке
-    void print(); // Функция вывода списка
+    void pushFront(string value);
+    void pushBack(string value);
+    void popFront();
+    void popBack();
+    void removeAt(string value);
+    bool find(string value);
+    void print();
     void clearDList();
-    
+    DoubleNode* getHead() const;  // УБЕДИСЬ ЧТО ЕСТЬ
 };
- 
-#include "../src/list.cpp"
