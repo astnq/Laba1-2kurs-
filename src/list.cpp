@@ -5,13 +5,14 @@ Node::Node(string value) {
     next = nullptr;
 }
 
-SinglyLinkedList::SinglyLinkedList() { //Если список не содержит элементов, то присваиваем нулевое значение
+SinglyLinkedList::SinglyLinkedList() { 
     head = nullptr;
+    elementCount = 0;  
 }
 
-SinglyLinkedList::~SinglyLinkedList() {
-    while(!isEmpty()) {
-        popFront(); //Вызывает список, после которого очищает память
+SinglyLinkedList::~SinglyLinkedList() { 
+    while(!isEmpty()) { 
+        popFront();
     }
 }
 
@@ -19,68 +20,69 @@ bool SinglyLinkedList::isEmpty() const {
     return elementCount == 0;
 }
 
-void SinglyLinkedList::print(){
+void SinglyLinkedList::print() { 
     Node* current = head;
-    while(current) {
-        cout << current->data << " ";
-        current = current->next;
+    while(current) { 
+        cout << current->data << " ";  
+        current = current->next;  
     }
     cout << endl;
 }
+
 void SinglyLinkedList::pushFront(string value) { 
     Node* newNode = new Node(value);
-    newNode->next = head; //Следующий узел, становится текущей головой списка
+    newNode->next = head;
     head = newNode;
     elementCount++;
 }
 
-void SinglyLinkedList::pushBack(string value) { 
+void SinglyLinkedList::pushBack(string value) {
     Node* newNode = new Node(value);
-    if(head == nullptr) {  //Условие если список пуст
-        head = newNode;
-    } else { 
-        Node* current = head;
-        while(current->next !=nullptr) {
-            current = current->next; //Присваиваем current следующее значение
+    if(head == nullptr) { 
+        head = newNode;  
+    } else {
+        Node* current = head; 
+        while(current->next != nullptr) { 
+            current = current->next;
         }
         current->next = newNode;
     }
-    elementCount--;
+    elementCount++;  
 }
 
 void SinglyLinkedList::popFront() { 
     if(head == nullptr) return;
-    Node* nextHead = head->next; //Создание временной переменной, для сохранения
+    Node* nextHead = head->next;
     delete head;
     head = nextHead;
     elementCount--;
 }
 
-void SinglyLinkedList::popBack() {
-    if(head == nullptr) return; // Если список пуст
-    if(head->next == nullptr) { // Если один элемент
+void SinglyLinkedList::popBack() { 
+    if(head == nullptr) return;
+    if(head->next == nullptr) { 
         delete head;
-        head = nullptr; // Исправлено
+        head = nullptr;
     } else {
-        Node* current = head;
-        while(current->next->next != nullptr) { 
+         Node* current = head;
+         while(current->next->next != nullptr) { 
             current = current->next;
-        }
-            delete current->next; // Удаляем последний элемент
-            current->next = nullptr; // Обнуляем указатель на следующий элемент
+         }
+         delete current->next;
+         current->next = nullptr;
     }
     elementCount--;
 }
 
-void SinglyLinkedList::removeAt(string value)  {
+void SinglyLinkedList::removeAt(string value) { 
     if(isEmpty()) return;
     if(head->data == value) {
         popFront();
-        return; 
+        return;
     }
     Node* current = head;
-    while(current->next != nullptr && current->next->data != value) {
-        current = current->next;
+    while(current->next != nullptr && current->next->data != value) { 
+        current = current->next;  
     }
     if(current->next != nullptr) {
         Node* nodeToDelete = current->next;
@@ -90,63 +92,69 @@ void SinglyLinkedList::removeAt(string value)  {
     }
 }
 
-bool SinglyLinkedList::find(string value) {
+bool SinglyLinkedList::find(string value) { 
     Node* current = head;
     while(current != nullptr) {
-        if(current->data == value) {
+         if(current->data == value) { 
             return true;
-        }
-        current = current->next;
+         }
+         current = current->next;
     }
     return false;
 }
 
 void SinglyLinkedList::clearSList() { 
-    while(!isEmpty()) {
+    while(!isEmpty()) {  
         popFront();
     }
 }
 
-Node* SinglyLinkedList::getHead() const {
+Node* SinglyLinkedList::getHead() const { 
     return head;
 }
 
-DoubleNode::DoubleNode(string value) { 
+// DoubleLinkedList
+DoubleNode::DoubleNode(string value) {  
     data = value;
     next = nullptr;
     prev = nullptr;
 }
 
-DoublyLinkedList::DoublyLinkedList() {
-    head = nullptr; //Если список не содержит элементов, то присваиваем нулевое значение
+DoubleLinkedList::DoubleLinkedList() { 
+    head = nullptr;
     tail = nullptr;
+    elementCount = 0;  
 }
 
-DoublyLinkedList::~DoublyLinkedList() {
-    while(isEmpty()) {
-        popFront(); //Вызывает список, после которого очищает память
+DoubleLinkedList::~DoubleLinkedList() { 
+    while(!isEmpty()) { 
+        popFront();
     }
 }
 
-bool DoublyLinkedList::isEmpty() const {
+DoubleNode* DoubleLinkedList::getHead() const {
+    return head;
+}
+
+bool DoubleLinkedList::isEmpty() const { 
     return elementCount == 0;
 }
 
-void DoublyLinkedList::pushFront(string value) {
+void DoubleLinkedList::pushFront(string value) { 
     DoubleNode* newNode = new DoubleNode(value);
-    newNode->next = head;  //Следующий узел, становится текущей головой списка
-    if (head != nullptr) { 
-        head->prev = newNode; // Обновляем указатель prev у старой головы
+    newNode->next = head; 
+    if(head != nullptr) { 
+        head->prev = newNode;
     } else { 
-        tail = newNode; // Если список был пуст, новый узел становится и хвостом
+        tail = newNode;
     }
-    head = newNode; 
-    elementCount++;
+    head = newNode;
+    elementCount++; 
 }
 
-void DoublyLinkedList::pushBack(string value) { 
+void DoubleLinkedList::pushBack(string value) { 
     DoubleNode* newNode = new DoubleNode(value);
-    if(tail == nullptr) { //Условие если список пуст
+    if(tail == nullptr) { 
         head = newNode;
         tail = newNode;
     } else { 
@@ -154,62 +162,62 @@ void DoublyLinkedList::pushBack(string value) {
         tail->next = newNode;
         tail = newNode;
     }
-    elementCount++;
+    elementCount++;  
 }
 
-
-void DoublyLinkedList::popFront() {
-    if(head == nullptr) return; 
-    DoubleNode* nextHead = head; //Создание временной переменной, для сохранения
+void DoubleLinkedList::popFront() { 
+    if(head == nullptr) return;
+    DoubleNode* nextHead = head;  
     head = head->next;
-    if(head != nullptr) {
+    if(head != nullptr) { 
         head->prev = nullptr;
     } else { 
         tail = nullptr;
     }
     delete nextHead;
-    elementCount--;
+    elementCount--;  
 }
 
-void DoublyLinkedList::popBack() {
+void DoubleLinkedList::popBack() { 
     if(tail == nullptr) return;
-    if(head == tail) { //Если один элемент
-        head = nullptr;
-        tail = nullptr;
+    DoubleNode* nodeToDelete = tail;
+    if(head == tail) { 
+        head = nullptr;  
+        tail = nullptr;  
     } else { 
         tail = tail->prev;
-        tail->next = nullptr; //Следующий элемент - ноль
+        tail->next = nullptr;
     }
-    delete tail->next; // Удаляем последний элемент
-    elementCount--;
+    delete nodeToDelete;
+    elementCount--;  
 }
 
-void DoublyLinkedList::removeAt(string value) { 
+void DoubleLinkedList::removeAt(string value) { 
     DoubleNode* current = head;
-    while (current) {
-        if (current->data == value) {
-            if (current->prev) {
-                current->next = current->next;
+    while(current) { 
+        if(current->data == value) { 
+            if(current->prev) { 
+                current->prev->next = current->next;
             } else { 
-                head = current->next; // Удаляем голову
+                head = current->next;
             }
-            if (current->next) {
+            if(current->next) { 
                 current->next->prev = current->prev;
             } else { 
-                tail = current->prev; // Удаляем хвост
+                tail = current->prev;
             }
             delete current;
             elementCount--;
-            return; // Выход после удаления первого найденного элемента
+            return;
         }
         current = current->next;
     }
 }
 
-bool DoublyLinkedList::find(string value) {
-    DoubleNode* current = head;
+bool DoubleLinkedList::find(string value) { 
+    DoubleNode* current = head; 
     while(current) { 
-        if(current->data == value) {
+        if(current->data == value) { 
             return true;
         }
         current = current->next;
@@ -217,17 +225,17 @@ bool DoublyLinkedList::find(string value) {
     return false;
 }
 
-void DoublyLinkedList::print() {
+void DoubleLinkedList::print() { 
     DoubleNode* current = head;
-    while (current) {
+    while(current) { 
         cout << current->data << " ";
         current = current->next;
     }
     cout << endl;
 }
 
-void DoublyLinkedList::clearDList() { 
+void DoubleLinkedList::clearDList() { 
     while(!isEmpty()) { 
-        popFront();
+        popFront();  
     }
 }
