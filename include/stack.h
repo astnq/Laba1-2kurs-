@@ -1,12 +1,10 @@
-#pragma once
-
+#pragma once 
 #include "includes.h"
 
-struct Stack{
-
-    string* data; 
+struct Stack { 
+    string* data;
     int head;
-    int capacity;
+    int capacity;  
 
     Stack(size_t size);
     Stack();
@@ -18,7 +16,3 @@ struct Stack{
     bool isEmpty();
     size_t size();
 };
-
-#include "../src/stack.cpp"
-
-//#endif 
