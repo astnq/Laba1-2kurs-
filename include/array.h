@@ -1,16 +1,15 @@
 #pragma once
-
 #include "includes.h"
 
 struct Array
-{
+{ 
     string *arr;
     size_t size;
     size_t volume;
 
     Array();
     ~Array();
-
+    
     void ShowArray() const;
     void addToEnd(string value);
     void add(size_t index, string value);
@@ -19,4 +18,3 @@ struct Array
     void replace(size_t index, string value);
     size_t getSize() const;
 };
-#include "../src/array.cpp"
