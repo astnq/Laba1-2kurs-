@@ -1,5 +1,4 @@
 #pragma once 
-
 #include "includes.h"
 
 struct NodeT { 
@@ -10,25 +9,21 @@ struct NodeT {
     NodeT(int value);
 };
 
-struct CompleteBinaryTree { 
-    NodeT* root; //Главная часть в бинарном дереве
+struct FullBinaryTree { 
+    NodeT* root;
     size_t size;
 
-    CompleteBinaryTree();
-    ~CompleteBinaryTree();
+    FullBinaryTree();
+    ~FullBinaryTree();
 
     void print();
     string toString();
-    void insert(int value); //Функция добавления элемента
-    NodeT* _insert(NodeT* nodeb, int value);
-    bool search(NodeT* nodet, int value); //функция поиска
-    bool isComplete(NodeT* nodet, int index, int totalNodes); // проверка на complete
-    bool isComplete();
-    int countNodes(NodeT* nodet);
-    string _toString(NodeT* nodet);
+    void insert(int value); 
+    NodeT* _insert(NodeT* node, int value);
+    bool search(NodeT* node, int value);
+    bool isFull(NodeT* node); 
+    bool isFull();
+    string _toString(NodeT* node);
     void printTree(NodeT* node, int depth);
-    void clear(NodeT* nodet); // освобождение памяти
+    void clear(NodeT* node);
 };
-
-#include "../src/tree.cpp"
-
