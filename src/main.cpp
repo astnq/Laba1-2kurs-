@@ -363,6 +363,7 @@ void LPOPDouble(string& name, string& filenm, string check) {
 
     if (!data.isEmpty()) {
         (check == "back") ? data.popBack() : data.popFront();
+        
         string str = name + ' ';
         DoubleNode* current = data.getHead();
         while (current) {
@@ -423,7 +424,7 @@ void LPRINTDouble(string& name, string& filename) {
 void lMenu(string& command, string filenm) {
     string name, value;
 
-    // ОДНОСВЯЗНЫЙ СПИСОК (ПЕРВЫЙ)
+    // ОДНОСВЯЗНЫЙ СПИСОК 
     if (command.substr(0, 7) == "LPUSHS ") {
         string cons = command.substr(7);
         stringstream stream(cons);
