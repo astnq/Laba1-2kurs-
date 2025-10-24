@@ -128,16 +128,16 @@ DoubleLinkedList::DoubleLinkedList() {
 
 DoubleLinkedList::~DoubleLinkedList() { 
     while(!isEmpty()) { 
-        popFront();                                 // Рекурсивное удаление
+        popFront();                                 // Последовательное удаление с начала
     }
 }
 
 DoubleNode* DoubleLinkedList::getHead() const {
-    return head;                                    // Получение головы
+    return head;                                    // Получение указателя на голову
 }
 
 bool DoubleLinkedList::isEmpty() const { 
-    return elementCount == 0;                       // Проверка пустоты
+    return elementCount == 0;                       // Проверка через счетчик элементов
 }
 
 void DoubleLinkedList::pushFront(string value) { 
@@ -167,28 +167,34 @@ void DoubleLinkedList::pushBack(string value) {
 
 void DoubleLinkedList::popFront() { 
     if(head == nullptr) return;
-    DoubleNode* nextHead = head;  
-    head = head->next;
+    
+    DoubleNode* nodeToDelete = head;                // Сохраняем текущую голову для удаления
+    head = head->next;                              // Перемещаем голову на следующий узел
+    
     if(head != nullptr) { 
         head->prev = nullptr;                       // Обнуление prev новой головы
     } else { 
         tail = nullptr;                             // Список стал пустым
     }
-    delete nextHead;
+    
+    delete nodeToDelete;                            // Удаляем старую голову
     elementCount--;  
 }
 
 void DoubleLinkedList::popBack() { 
     if(tail == nullptr) return;
-    DoubleNode* nodeToDelete = tail;
-    if(head == tail) { 
-        head = nullptr;                             // В списке один элемент
-        tail = nullptr;  
+    
+    DoubleNode* nodeToDelete = tail;                // Сохраняем текущий хвост для удаления
+    
+    if(head == tail) {                              // В списке один элемент
+        head = nullptr;
+        tail = nullptr;
     } else { 
-        tail = tail->prev;                          // Перемещение хвоста назад
-        tail->next = nullptr;                       // Обнуление ссылки нового хвоста
+        tail = tail->prev;                          // Перемещаем хвост на предыдущий узел
+        tail->next = nullptr;                       // Обнуляем next нового хвоста
     }
-    delete nodeToDelete;
+    
+    delete nodeToDelete;                            // Удаляем старый хвост
     elementCount--;  
 }
 
@@ -218,7 +224,7 @@ bool DoubleLinkedList::find(string value) {
     DoubleNode* current = head; 
     while(current) { 
         if(current->data == value) { 
-            return true;                            // Линейный поиск
+            return true;                            // Линейный поиск по значению
         }
         current = current->next;
     }
